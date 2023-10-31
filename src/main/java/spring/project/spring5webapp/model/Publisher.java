@@ -1,32 +1,35 @@
 package spring.project.spring5webapp.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Publisher {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-        private String name;
-        private String addressLine1;
-        private String city;
-        private String state;
-        private String zip;
+    private String name;
+    private String addressLine1;
+    private String city;
+    private String state;
+    private String zip;
+    @OneToMany
+    @JoinColumn(name = "publisher_id")
+    private Set<Book> books = new HashSet<>();
 
-        public Publisher() {
-        }
+    public Publisher() {
+    }
 
-        @Override
-        public String toString() {
-            return "Publisher{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", addressLine1='" + addressLine1 + '\'' +
-                    ", city='" + city + '\'' +
+    @Override
+    public String toString() {
+        return "Publisher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", city='" + city + '\'' +
                     ", state='" + state + '\'' +
                     ", zip='" + zip + '\'' +
                     '}';
@@ -87,11 +90,19 @@ public class Publisher {
             this.state = state;
         }
 
-        public String getZip() {
-            return zip;
-        }
+    public String getZip() {
+        return zip;
+    }
 
-        public void setZip(String zip) {
-            this.zip = zip;
-        }
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
 }
